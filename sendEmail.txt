@@ -1,0 +1,26 @@
+you have to enable two factor authorization and Allow Less Secure Apps
+
+
+Install ssmtp on your system if it's not already installed:
+
+sudo apt-get install ssmtp   
+
+
+Configure ssmtp with your SMTP server settings. Edit the /etc/ssmtp/ssmtp.conf file and add the following lines:
+
+root=your_email
+mailhub=smtp.example.com:587
+AuthUser=your_email
+AuthPass=your_password
+UseSTARTTLS=YES
+
+bash:
+#!/bin/bash
+
+recipient="email_address_where_you_send"
+subject="Test Email"
+message="This is a test email sent from a Bash script using ssmtp."
+
+echo -e "Subject: $subject\n$message" | ssmtp "$recipient"
+
+echo "Email sent to $recipient with subject: $subject"
