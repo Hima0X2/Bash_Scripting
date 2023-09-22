@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "Enter the filename"
+read file
+
+if [[ -f $file ]] 
+then
+    echo "Enter the word you want to search"
+    read word
+        grep -oE "[^.]*\b$word\b[^.]*\." "$file"
+        sed -i "/$word/d" "$file"
+    	cp a.txt b.txt
+else
+    echo "File not found"
+fi
