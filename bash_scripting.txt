@@ -1,0 +1,197 @@
+make a bash file and permission this file and execute
+touch hello.sh 
+chmod +x hello.sh(for give me permission)
+./hello.sh(execute hello file)
+
+example of an bash file
+
+#! /bin/bash
+write tour bash code here
+
+conditional
+*if count is equal 10 or not
+
+count=11
+
+if (( $count == 10 ))
+then
+	echo "equal to 10"
+elif (( $count > 10 ))
+then
+	echo "greater than 10"
+else
+	echo "less than 10"
+fi
+
+for OR operation if [[ $count == 10 || $count == 11 ]];
+for AND operation if [[ $count == 10 $$ $count == 11 ]];
+for NOT operation if ! [ $count == 10];
+
+conditional operation:
+
+for i in {0..10}
+do
+	echo $i
+done
+
+or
+
+for (( i=0; i<5; i++ ))
+do
+	if(( $i==4 ))
+	then
+		break
+	fi
+	echo $i
+done
+
+for input(array) :
+a=("$@")
+echo ${a[0]} ${a[1]} ${a[2]}
+echo $@ (show all the element)
+echo $# (length of this array)
+
+for input(single) :
+read s
+
+convert string in lowercase:
+echo ${$str1^}
+ 
+convert string in uppercase:
+echo ${$str2^^}
+
+for sum two values:
+a=4
+b=10
+echo $((a+b))
+
+or
+
+a=4
+b=10
+echo $(expr $a + $b )
+
+Declare anything(doesn't change)
+declare -r pwdfile=/etc/passwd
+echo $pwdfile
+
+Declare array:
+car=("a" "b" 'C')
+echo ${car[@]} output= a b c
+echo ${car[1]} output= b
+echo ${!car[@]} output= index(0 1 2)
+
+unset car[2]= delete value of index 2
+
+create function:
+
+function abs()
+{
+	echo "Hello i am function"
+}
+
+abs
+
+-d "$a"= $a value directory exist or not?
+-f "$a"= $a value file exist or not?
+
+append or replace text in any file:
+
+echo "Enter filename"
+read filename
+if [[ -f "$filename" ]]
+then
+	echo "Enter the text that you want to append"
+	read fileText
+	echo "$fileText" >> $filename(for append)
+	echo "$fileText" > $filename(for replace)
+else
+	echo "$filename doesn't exist"
+fi
+
+Reading any file:
+
+echo "Enter filename"
+read filename
+if [[ -f "$filename" ]]
+then
+	while IFS= read -r line
+	do
+		echo "$line"
+	done<$filename
+else
+	echo "$filename doesn't exist"
+fi
+
+Delete the file
+
+echo "Enter filename"
+read filename
+if [[ -f "$filename" ]]
+then
+	rm $filename
+	echo "file deleted successfully"
+else
+	echo "$filename doesn't exist"
+fi
+
+download something:
+
+url=""
+curl ${url} -o (file nijossho name e save)
+or
+curl ${url} > output (file output name e save)
+for show file informarion
+curl -I ${url}
+
+file event notification :
+
+mkdir -p temp/Newfolder
+inotifywait -m temp/Newfolder
+
+
+search any word from any file and show the line:
+
+echo "Enter the filename"
+read file
+
+if [[ -f $file ]] 
+then
+    echo "Enter the word you want to search"
+    read word
+    while grep -oE "[^.]*\b$word\b[^.]*\." "$file" >/dev/null; do
+        grep -oE "[^.]*\b$word\b[^.]*\." "$file"
+        sed -i "0,/$word/d" "$file"
+    done
+    cp a.txt b.txt
+else
+    echo "File not found"
+fi
+
+
+print something in a sequence way :
+
+echo "Enter the filename"
+read file
+if [[ -f $file ]]
+then
+	awk '{print $3}' $file
+else
+	echo "File not found";
+fi
+it printed 3rd word of all lines
+
+Replacing all the occurrence of the pattern in a line :
+
+echo "Enter the filename"
+read file
+if [[ -f $file ]]
+then
+	cat $file | sed 's/i/I/g' (Replace all the i to I and read the file)
+else
+	echo "File not found";
+fi
+
+debugging bash script :
+just add this 
+#! /bin/bash -x
